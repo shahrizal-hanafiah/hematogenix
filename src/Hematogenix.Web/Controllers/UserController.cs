@@ -6,12 +6,17 @@ using System.Web.Mvc;
 
 namespace Hematogenix.Web.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
+        // GET: User
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }
