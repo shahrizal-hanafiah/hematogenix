@@ -4,3 +4,12 @@ Hematogenix.DataAccess/obj/
 Hematogenix.Shared/obj/
 Hematogenix.Web/obj/
 Hematogenix.Application.UnitTests/obj/
+packages/
+src/Hematogenix.Web/obj/
+src/Hematogenix.Web/bin/
+src/Hematogenix.Shared/obj/
+src/Hematogenix.DataAccess/obj/
+src/Hematogenix.Core/obj/
+src/Hematogenix.Application/obj/
+tests/Hematogenix.Application.UnitTests/obj/
+tests/Hematogenix.Application.UnitTests/bin/
