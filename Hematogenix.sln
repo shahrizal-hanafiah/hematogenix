@@ -3,43 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hematogenix.Web", "Hematogenix.Web\Hematogenix.Web.csproj", "{C2CA8304-1A3E-45A9-8465-0EA3BB6A1255}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hematogenix.DataAccess", "Hematogenix.DataAccess\Hematogenix.DataAccess.csproj", "{FDD3F6F1-4C2D-4CF8-A5B3-126C61C24784}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hematogenix.Core", "Hematogenix.Core\Hematogenix.Core.csproj", "{4D338180-6E94-4EDA-B7D6-9C3B4864237E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hematogenix.Application", "Hematogenix.Application\Hematogenix.Application.csproj", "{B25291FA-8DDE-4FED-92F2-143DB046CDB8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hematogenix.Shared", "Hematogenix.Shared\Hematogenix.Shared.csproj", "{53DE57D3-175D-48B3-8AE2-97A8E1782170}"
-EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C2CA8304-1A3E-45A9-8465-0EA3BB6A1255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2CA8304-1A3E-45A9-8465-0EA3BB6A1255}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2CA8304-1A3E-45A9-8465-0EA3BB6A1255}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2CA8304-1A3E-45A9-8465-0EA3BB6A1255}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDD3F6F1-4C2D-4CF8-A5B3-126C61C24784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDD3F6F1-4C2D-4CF8-A5B3-126C61C24784}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDD3F6F1-4C2D-4CF8-A5B3-126C61C24784}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDD3F6F1-4C2D-4CF8-A5B3-126C61C24784}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D338180-6E94-4EDA-B7D6-9C3B4864237E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D338180-6E94-4EDA-B7D6-9C3B4864237E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D338180-6E94-4EDA-B7D6-9C3B4864237E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D338180-6E94-4EDA-B7D6-9C3B4864237E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B25291FA-8DDE-4FED-92F2-143DB046CDB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B25291FA-8DDE-4FED-92F2-143DB046CDB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B25291FA-8DDE-4FED-92F2-143DB046CDB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B25291FA-8DDE-4FED-92F2-143DB046CDB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53DE57D3-175D-48B3-8AE2-97A8E1782170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53DE57D3-175D-48B3-8AE2-97A8E1782170}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53DE57D3-175D-48B3-8AE2-97A8E1782170}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53DE57D3-175D-48B3-8AE2-97A8E1782170}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
