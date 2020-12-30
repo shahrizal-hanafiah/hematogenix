@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hematogenix.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,12 @@ namespace Hematogenix.Web.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult RegisterUser(RegisterViewModel registerBody)
+        {
+            return Json("Ok");
         }
     }
 }
