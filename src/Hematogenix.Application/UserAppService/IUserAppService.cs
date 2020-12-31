@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hematogenix.Application
 {
-    public interface IUser:IAppService<UserDto>
+    public interface IUserAppService:IAppService<UserDto>
     {
     }
 }

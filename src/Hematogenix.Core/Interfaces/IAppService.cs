@@ -8,7 +8,7 @@ namespace Hematogenix.Core.Interfaces
     public interface IAppService<TDto>
     {
         TDto GetById(int id);
-        IList<TDto> GetAll(int id);
+        IList<TDto> GetAll();
         int Insert(TDto dto);
         void Update(TDto dto);
         void Delete(int id);

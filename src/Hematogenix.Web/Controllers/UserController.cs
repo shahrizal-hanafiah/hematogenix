@@ -9,7 +9,11 @@ namespace Hematogenix.Web.Controllers
 {
     public class UserController : Controller
     {
-        // GET: User
+        //public IUserAppService userAppService;
+        public UserController()
+        {
+
+        }
         public ActionResult Index()
         {
             return View();
@@ -23,6 +27,7 @@ namespace Hematogenix.Web.Controllers
         [HttpPost]
         public JsonResult RegisterUser(RegisterViewModel registerBody)
         {
+
             return Json("Ok");
         }
     }
