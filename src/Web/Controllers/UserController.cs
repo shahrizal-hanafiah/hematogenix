@@ -29,6 +29,7 @@ namespace Web.Controllers
             return View();
         }
 
+        [ActionName("GetUsers")]
         public JsonResult GetUsers()
         {
             var status = new RequestStatusViewModel()
@@ -39,7 +40,7 @@ namespace Web.Controllers
 
             try
             {
-                var users = _userAppService.GetAll();
+                var users = _userAppService.GetAll().ToArray();
                 return Json(users);
             }
             catch (Exception ex)

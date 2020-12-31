@@ -13,3 +13,5 @@ src/Hematogenix.Core/obj/
 src/Hematogenix.Application/obj/
 tests/Hematogenix.Application.UnitTests/obj/
 tests/Hematogenix.Application.UnitTests/bin/
+.vs/
+src/Web/obj/
