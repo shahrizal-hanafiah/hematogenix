@@ -4,23 +4,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.5.2/validator.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.5.2/validator.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<style>
+    .swal2-popup {
+        font-size: 1.6rem !important;
+    }
+</style>
 
 <h2>Register</h2>
 
 <form role="form" id="register" data-toggle="validator">
     <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" maxlength="50" pattern="[a-zA-Z0-9\s]+" oninvalid="setCustomValidity('Please enter on Alphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required>
+        <input type="text" class="form-control" id="username" placeholder="johndoe123" maxlength="50" pattern="[a-zA-Z0-9\s]+" oninvalid="setCustomValidity('Please enter on alphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required>
     </div>
     <div class="form-group">
         <label for="firstname">First Name:</label>
-        <input type="text" class="form-control" id="firstname" maxlength="50">
+        <input type="text" class="form-control" id="firstname" placeholder="John" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="lastname">Last Name:</label>
-        <input type="text" class="form-control" id="lastname" maxlength="50">
+        <input type="text" class="form-control" id="lastname" placeholder="Doe" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="role">Role:</label><br />
@@ -29,11 +34,11 @@
     </div>
     <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" required>
+        <input type="email" class="form-control" placeholder="john.doe@email.com" id="email" required>
     </div>
     <div class="form-group">
         <label for="phone">Phone:</label>
-        <input type="tel" class="form-control" id="phone">
+        <input type="tel" class="form-control" placeholder="012-34567890" id="phone">
     </div>
     <button type="submit" class="btn btn-info" id="submit">Submit</button>
     <button type="reset" class="btn btn-default">Reset</button>
@@ -49,33 +54,38 @@
                 document.getElementById("phone").required = false;
         });
 
-        $('#register').validator().on('submit', function (e) {
-            if (e.isDefaultPrevented()) {
-                // handle the invalid form...
-            } else {
-                // everything looks good!
-                var formData = {
-                    'username': $('#username').val(),
-                    'firstname': $('#firstname').val(),
-                    'lastname': $('#lastname').val(),
-                    'role': $('input[name=role]:checked').val(),
-                    'email': $('#email').val(),
-                    'phone': $('#phone').val(),
-                };
+        $('#register').on('submit', function (e) {
+            var formData = {
+                'username': $('#username').val(),
+                'firstname': $('#firstname').val(),
+                'lastname': $('#lastname').val(),
+                'role': $('input[name=role]:checked').val(),
+                'email': $('#email').val(),
+                'phone': $('#phone').val(),
+            };
 
-                console.log(formData);
+            console.log(formData);
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'registeruser',
-                    data: formData,
-                    dataType: 'json',
-                    encode: true
-                }).done(function (data) {
-                    console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: 'registeruser',
+                data: formData,
+                dataType: 'json',
+                encode: true
+            }).done(function (data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'User successfully registered!',
                 });
-                event.preventDefault();
-            }
+            }).error(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'SuErrorccess',
+                    text: err,
+                });
+            });
+            event.preventDefault();
         });
     });
 </script>

@@ -1,4 +1,5 @@
-﻿using Hematogenix.Shared.DTO;
+﻿using Hematogenix.Core.Interfaces;
+using Hematogenix.Shared.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hematogenix.Application
 {
-    public interface IUser
+    public interface IUser:IAppService<UserDto>
     {
-        bool RegisterUser(RegisterDto registerDto);
     }
 }
