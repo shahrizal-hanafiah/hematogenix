@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Hematogenix.Application.Helper;
 using Hematogenix.Core.Model;
+using Hematogenix.DataAccess;
 using Hematogenix.DataAccess.Repositories;
 using Hematogenix.Shared.Dto;
 using System;
@@ -12,10 +14,12 @@ namespace Hematogenix.Application.UserAppService
 {
     public class UserAppService : IUserAppService
     {
-        private readonly IUserRepository _userRepository;
-        public UserAppService(IUserRepository userRepository)
+        //private readonly IUserRepository _userRepository;
+        //private IConnectionFactory _connectionFactory = ;
+        private DbContext _context = new DbContext(ConnectionHelper.GetConnection());
+
+        public UserAppService()
         {
-            _userRepository = userRepository;
         }
         public IList<UserDto> GetAll()
         {
@@ -26,7 +30,9 @@ namespace Hematogenix.Application.UserAppService
 
             IMapper Mapper = config.CreateMapper();
 
-            var users = _userRepository.GetUsers();
+            var userRepository = new UserRepository(_context);
+
+            var users = userRepository.GetUsers();
 
             return (Mapper.Map<IList<User>, IList<UserDto>>(users));
         }
@@ -34,9 +40,29 @@ namespace Hematogenix.Application.UserAppService
         {
             throw new NotImplementedException();
         }
-        public int Insert(UserDto userDto)
+        public bool Insert(UserDto userDto)
         {
-            return (_userRepository.Insert(userDto));
+            if (userDto == null)
+                throw new ArgumentNullException("User empty");
+
+            if (userDto.Username.Length == 0)
+                throw new ArgumentNullException("Username empty");
+
+            if (userDto.Username.Length > 50)
+                throw new ArgumentOutOfRangeException("Username exceed 50 character");
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UserDto,User>();
+            });
+
+            IMapper Mapper = config.CreateMapper();
+
+            var user = Mapper.Map<UserDto, User>(userDto);
+
+            var userRepository = new UserRepository(_context);
+
+            return(userRepository.CreateUser(user));
         }
         public void Update(UserDto dto)
         {

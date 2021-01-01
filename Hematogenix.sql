@@ -19,20 +19,42 @@ begin
 select * from [dbo].[User]    
 end     
 /* TO CREATE NEW USER*/    
-create procedure spAddNew    
-(    
+-- create procedure spAddNew    
+-- (    
+-- @Username nvarchar(50),    
+-- @FirstName nvarchar(50),    
+-- @LastName nvarchar(50),    
+-- @Role nvarchar(20),    
+-- @Email nvarchar(50),    
+-- @Phone nvarchar(20)
+-- )    
+-- as    
+-- begin    
+    -- insert into [dbo].[User]  (Username,FirstName,LastName,Role,Email,Phone)    
+    -- values(@Username,@FirstName,@LastName,@Role,@Email,@Phone)    
+-- end    
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[spCreateUser]
 @Username nvarchar(50),    
 @FirstName nvarchar(50),    
 @LastName nvarchar(50),    
 @Role nvarchar(20),    
 @Email nvarchar(50),    
 @Phone nvarchar(20)
-)    
-as    
-begin    
-    insert into [dbo].[User]  (Username,FirstName,LastName,Role,Email,Phone)    
-    values(@Username,@FirstName,@LastName,@Role,@Email,@Phone)    
-end    
+AS
+  BEGIN
+	insert into [dbo].[User]  (Username,FirstName,LastName,Role,Email,Phone)    
+    values(@Username,@FirstName,@LastName,@Role,@Email,@Phone) 
+
+	Select  * from [dbo].[User] where Id = CAST(SCOPE_IDENTITY() AS INT) 
+  END
+GO
+
 /* TO UPDATE USER*/    
 create procedure spUpdateUser    
 (    
@@ -59,3 +81,33 @@ as
 begin    
     delete from [dbo].[User]   where Id=@Id    
 end 
+
+/*TO GET USER BY USERNAME OR EMAIL */
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[spGetUserByUsernameOrEmail]
+	@Username			nvarchar(50) = '',
+	@Email				nvarchar(50) = ''
+AS
+  BEGIN
+
+  if(@Username = '')
+  SET @Username = null
+
+  if(@Email = '')
+  SET @Email = null
+
+  
+
+	Select 
+		[Id]
+	from [dbo].[User] 
+	where (@pUsername IS NOT NULL AND [UserName] = @Username)
+		  OR (@pEmail IS NOT NULL AND [Email] = @Email)
+  END
+GO
+

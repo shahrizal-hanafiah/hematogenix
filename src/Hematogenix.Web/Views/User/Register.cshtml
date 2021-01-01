@@ -1,44 +1,39 @@
-﻿
-@{
-    ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
-    .swal2-popup {
-        font-size: 1.6rem !important;
+    .error {
+        color: #ff0000;
     }
 </style>
-
 <h2>Register</h2>
 
-<form role="form" id="register" data-toggle="validator">
+<form id="register" role="form" name="register">
     <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" class="form-control" id="username" placeholder="johndoe123" maxlength="50" pattern="[a-zA-Z0-9\s]+" oninvalid="setCustomValidity('Please enter on alphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required>
+        <input type="text" class="form-control" name="Username" id="username" placeholder="johndoe123" maxlength="50" pattern="[a-zA-Z0-9\s]+" oninvalid="setCustomValidity('Please enter on alphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required>
     </div>
     <div class="form-group">
         <label for="firstname">First Name:</label>
-        <input type="text" class="form-control" id="firstname" placeholder="John" maxlength="50" required>
+        <input type="text" class="form-control" name="FirstName" id="firstname" placeholder="John" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="lastname">Last Name:</label>
-        <input type="text" class="form-control" id="lastname" placeholder="Doe" maxlength="50" required>
+        <input type="text" class="form-control" name="LastName" id="lastname" placeholder="Doe" maxlength="50" required>
     </div>
     <div class="form-group">
         <label for="role">Role:</label><br />
-        <label class="radio-inline"><input type="radio" value="generaluser" name="role" required> General User</label>
-        <label class="radio-inline"><input type="radio" value="superuser" name="role" required> Super User</label>
+        <label class="radio-inline"><input type="radio" value="generaluser" name="Role" required> General User</label>
+        <label class="radio-inline"><input type="radio" value="superuser" name="Role" required> Super User</label>
     </div>
     <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" placeholder="john.doe@email.com" id="email" required>
+        <input type="email" class="form-control" placeholder="john.doe@email.com" name="Email" id="email" required>
     </div>
     <div class="form-group">
         <label for="phone">Phone:</label>
-        <input type="tel" class="form-control" placeholder="012-34567890" id="phone">
+        <input type="tel" class="form-control" placeholder="012-34567890" name="Phone" id="phone">
     </div>
     <button type="submit" class="btn btn-info" id="submit">Submit</button>
     <button type="reset" class="btn btn-default">Reset</button>
@@ -47,45 +42,89 @@
 <script>
     $(document).ready(function () {
 
-        $('input[name=role]').click(function () {
-            if ($('input[name=role]:checked').val() === "superuser")
-                document.getElementById("phone").required = true;
+        $("#username").rules("add", { pattern: "[a-zA-Z0-9\s]+" })
+
+        $('input[name=Role]').click(function () {
+            alert($('input[name=Role]:checked').val());
+            if ($('input[name=Role]:checked').val() == "superuser")
+                $('#phone').required = true;
             else
-                document.getElementById("phone").required = false;
+                $('#phone').required = false;
         });
 
-        $('#register').on('submit', function (e) {
-            var formData = {
+        $("form[id='register']").validate({
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                firstname: "required",
+                lastname: "required",
+                email: {
+                    required: true,
+                    // Specify that email should be validated
+                    // by the built-in "email" rule
+                    email: true
+                },
+            },
+            // Specify validation error messages
+            messages: {
+                firstname: "Please enter your firstname",
+                lastname: "Please enter your lastname",               
+                email: "Please enter a valid email address"
+            },
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function (form) {
+                RegisterUser();
+            }
+        });
+
+        function RegisterUser() {
+            var data = {
                 'username': $('#username').val(),
                 'firstname': $('#firstname').val(),
                 'lastname': $('#lastname').val(),
-                'role': $('input[name=role]:checked').val(),
+                'role': $('input[name=Role]:checked').val(),
                 'email': $('#email').val(),
                 'phone': $('#phone').val(),
             };
 
-            console.log(formData);
+            console.log(data);
 
             $.ajax({
                 type: 'POST',
-                url: 'registeruser',
-                data: formData,
+                url: 'RegisterUser',
+                data: data,
                 dataType: 'json',
-                encode: true
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             }).done(function (data) {
+                console.log(data);
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: 'User successfully registered!',
-                });
+                }).then((result) => { ClearForm(); });
             }).error(function (err) {
+                console.log(err);
                 Swal.fire({
                     icon: 'error',
-                    title: 'SuErrorccess',
+                    title: 'Error',
                     text: err,
                 });
             });
             event.preventDefault();
-        });
+        }
+
+        //$('#submit').click(function (e) {
+            
+        //});
     });
+
+    function ClearForm() {
+        $('#register').find('input:text').val('');
+        $('#register').find('#email').val('');
+        $('#register').find('#phone').val('');
+        $('input[type=radio]').removeAttr('checked');
+    }
 </script>
