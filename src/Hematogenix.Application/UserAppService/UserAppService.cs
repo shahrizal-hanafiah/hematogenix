@@ -71,7 +71,7 @@ namespace Hematogenix.Application.UserAppService
             if(!Email.IsValidEmail(userDto.Email))
                 throw new FormatException("Incorrect email format");
 
-            if(userDto.Role == "superuser" && string.IsNullOrEmpty(userDto.Phone))
+            if(userDto.Role == "Super User" && string.IsNullOrEmpty(userDto.Phone))
                 throw new ArgumentNullException("Phone is required");
 
 
