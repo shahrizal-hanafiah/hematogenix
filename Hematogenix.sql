@@ -19,20 +19,6 @@ begin
 select * from [dbo].[User]    
 end     
 /* TO CREATE NEW USER*/    
--- create procedure spAddNew    
--- (    
--- @Username nvarchar(50),    
--- @FirstName nvarchar(50),    
--- @LastName nvarchar(50),    
--- @Role nvarchar(20),    
--- @Email nvarchar(50),    
--- @Phone nvarchar(20)
--- )    
--- as    
--- begin    
-    -- insert into [dbo].[User]  (Username,FirstName,LastName,Role,Email,Phone)    
-    -- values(@Username,@FirstName,@LastName,@Role,@Email,@Phone)    
--- end    
 SET ANSI_NULLS ON
 GO
 

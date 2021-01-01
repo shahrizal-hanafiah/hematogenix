@@ -4,6 +4,7 @@ using Hematogenix.Core.Model;
 using Hematogenix.DataAccess;
 using Hematogenix.DataAccess.Repositories;
 using Hematogenix.Shared.Dto;
+using Hematogenix.Shared.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,13 +44,38 @@ namespace Hematogenix.Application.UserAppService
         public bool Insert(UserDto userDto)
         {
             if (userDto == null)
-                throw new ArgumentNullException("User empty");
+                throw new ArgumentNullException("User is empty");
 
-            if (userDto.Username.Length == 0)
-                throw new ArgumentNullException("Username empty");
+            if (string.IsNullOrEmpty(userDto.Username))
+                throw new ArgumentNullException("Username is required");
 
             if (userDto.Username.Length > 50)
                 throw new ArgumentOutOfRangeException("Username exceed 50 character");
+
+            if(string.IsNullOrEmpty(userDto.FirstName))
+                throw new ArgumentNullException("First name is required");
+
+            if (userDto.FirstName.Length > 50)
+                throw new ArgumentOutOfRangeException("First name exceed 50 character");
+
+            if (string.IsNullOrEmpty(userDto.LastName))
+                throw new ArgumentNullException("Last name is required");
+
+            if (userDto.LastName.Length > 50)
+                throw new ArgumentOutOfRangeException("Last name exceed 50 character");
+
+            if (string.IsNullOrEmpty(userDto.Role))
+                throw new ArgumentNullException("Role is required");
+
+            if(string.IsNullOrEmpty(userDto.Email))
+                throw new ArgumentNullException("Email is required");
+
+            if(!Email.IsValidEmail(userDto.Email))
+                throw new FormatException("Incorrect email format");
+
+            if(userDto.Role == "superuser" && string.IsNullOrEmpty(userDto.Phone))
+                throw new ArgumentNullException("Phone is required");
+
 
             var config = new MapperConfiguration(cfg =>
             {
