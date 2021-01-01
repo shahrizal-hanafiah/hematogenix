@@ -9,7 +9,7 @@
 </style>
 <h2>Register</h2>
 
-<form id="register" role="form" name="register">
+<form id="register" role="form" action="submit false" name="register" novalidate>
     <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" class="form-control" name="Username" id="username" placeholder="johndoe123" maxlength="50" pattern="[a-zA-Z0-9\s]+" oninvalid="setCustomValidity('Please enter on alphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required>
@@ -35,49 +35,25 @@
         <label for="phone">Phone:</label>
         <input type="tel" class="form-control" placeholder="012-34567890" name="Phone" id="phone">
     </div>
-    <button type="submit" class="btn btn-info" id="submit">Submit</button>
+    <button type="button" class="btn btn-info" id="submit">Submit</button>
     <button type="reset" class="btn btn-default">Reset</button>
 </form>
 
 <script>
     $(document).ready(function () {
 
-        $("#username").rules("add", { pattern: "[a-zA-Z0-9\s]+" })
-
         $('input[name=Role]').click(function () {
-            alert($('input[name=Role]:checked').val());
             if ($('input[name=Role]:checked').val() == "superuser")
-                $('#phone').required = true;
+                $('#phone').prop('required', true);
             else
-                $('#phone').required = false;
+                $('#phone').prop('required', false);
         });
 
-        $("form[id='register']").validate({
-            // Specify validation rules
-            rules: {
-                // The key name on the left side is the name attribute
-                // of an input field. Validation rules are defined
-                // on the right side
-                firstname: "required",
-                lastname: "required",
-                email: {
-                    required: true,
-                    // Specify that email should be validated
-                    // by the built-in "email" rule
-                    email: true
-                },
-            },
-            // Specify validation error messages
-            messages: {
-                firstname: "Please enter your firstname",
-                lastname: "Please enter your lastname",               
-                email: "Please enter a valid email address"
-            },
-            // Make sure the form is submitted to the destination defined
-            // in the "action" attribute of the form when valid
-            submitHandler: function (form) {
+        $('#submit').click(function (e) {
+            var form = $('#register');
+            if(form.valid())
                 RegisterUser();
-            }
+            e.preventDefault();
         });
 
         function RegisterUser() {
@@ -90,14 +66,18 @@
                 'phone': $('#phone').val(),
             };
 
-            console.log(data);
+            console.log(JSON.stringify(data));
 
             $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 type: 'POST',
-                url: 'RegisterUser',
-                data: data,
-                dataType: 'json',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                url: '/api/user/register',
+                data: JSON.stringify(data),
+                dataType: 'JSON',
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             }).done(function (data) {
                 console.log(data);
                 Swal.fire({
@@ -113,18 +93,15 @@
                     text: err,
                 });
             });
-            event.preventDefault();
         }
 
-        //$('#submit').click(function (e) {
-            
-        //});
+        
     });
 
     function ClearForm() {
         $('#register').find('input:text').val('');
         $('#register').find('#email').val('');
         $('#register').find('#phone').val('');
-        $('input[type=radio]').removeAttr('checked');
+        $('input[type=radio]').prop('checked',false);
     }
 </script>

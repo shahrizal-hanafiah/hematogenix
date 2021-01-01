@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hematogenix.Shared.Settings;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,14 +18,11 @@ namespace Hematogenix.DataAccess
         private readonly string _connectionString;
         private readonly string _name;
 
-        public DbConnectionFactory(string connectionName)
+        public DbConnectionFactory()
         {
-            //if (connectionName == null) throw new ArgumentNullException("connectionName");
-
-            //var conStr = ConfigurationManager.ConnectionStrings[connectionName];
-            var conStr = "Data Source=SASPF1X29HW\\SQLEXPRESS;Initial Catalog=hematogenixdb;Integrated Security=True";
+            var conStr = AppSettings.Instance.ConnectionString;
             if (conStr == null)
-                throw new ConfigurationErrorsException(string.Format("Failed to find connection string named '{0}' in web.config.", connectionName));
+                throw new ConfigurationErrorsException(string.Format("Failed to find connection string in appsetting.json"));
 
             _name = "System.Data.SqlClient";
 

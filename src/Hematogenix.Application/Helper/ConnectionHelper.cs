@@ -1,4 +1,5 @@
 ﻿using Hematogenix.DataAccess;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Hematogenix.Application.Helper
     {
         public static IConnectionFactory GetConnection()
         {
-            return new DbConnectionFactory("HematogenixDb");
+            return new DbConnectionFactory();
         }
     }
 }

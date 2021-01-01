@@ -16,7 +16,6 @@ namespace Hematogenix.Web.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        [Phone]
         public string Phone { get; set; }
     }
 }
