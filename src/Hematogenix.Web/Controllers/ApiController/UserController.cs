@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Web.Models;
 
@@ -23,21 +24,21 @@ namespace Hematogenix.Web.Controllers.ApiController
             _userAppService = userAppService;
         }
 
-        public UserDto[] Get()
+        public ObjectResult Get()
         {
             try
             {
                 var users = _userAppService.GetAll().ToArray();
-                return users;
+                return Ok(users);
             }
             catch (Exception)
             {
-                return null;
+                return BadRequest(null);
             }
         }
 
         [HttpPost("register")]
-        public bool RegisterUser([FromBody]RegisterViewModel data)
+        public ObjectResult RegisterUser([FromBody]RegisterViewModel data)
         {
             try
             {
@@ -48,11 +49,11 @@ namespace Hematogenix.Web.Controllers.ApiController
                 IMapper Mapper = config.CreateMapper();
                 var user = Mapper.Map<RegisterViewModel, UserDto>(data);
 
-                return _userAppService.Insert(user);
+                return Ok(_userAppService.Insert(user));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                return BadRequest(ex.Message);
             }
         }
     }

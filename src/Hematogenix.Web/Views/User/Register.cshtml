@@ -51,7 +51,7 @@
 
         $('#submit').click(function (e) {
             var form = $('#register');
-            if(form.valid())
+            if (form.valid())
                 RegisterUser();
             e.preventDefault();
         });
@@ -78,6 +78,13 @@
                 data: JSON.stringify(data),
                 dataType: 'JSON',
                 //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                error: function (err) {
+                    console.log(err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: err.responseText
+                    })}
             }).done(function (data) {
                 console.log(data);
                 Swal.fire({
@@ -85,23 +92,16 @@
                     title: 'Success',
                     text: 'User successfully registered!',
                 }).then((result) => { ClearForm(); });
-            }).error(function (err) {
-                console.log(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: err,
-                });
             });
         }
 
-        
+
     });
 
     function ClearForm() {
         $('#register').find('input:text').val('');
         $('#register').find('#email').val('');
         $('#register').find('#phone').val('');
-        $('input[type=radio]').prop('checked',false);
+        $('input[type=radio]').prop('checked', false);
     }
 </script>

@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\src\Hematogenix.Core\Hematogenix.Core.csproj" />
     <ProjectReference Include="..\..\src\Hematogenix.DataAccess\Hematogenix.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\Hematogenix.Shared\Hematogenix.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Hematogenix.Web\Hematogenix.Web.csproj" />
   </ItemGroup>
 
 </Project>

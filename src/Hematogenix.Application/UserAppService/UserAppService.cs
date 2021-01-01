@@ -15,8 +15,6 @@ namespace Hematogenix.Application.UserAppService
 {
     public class UserAppService : IUserAppService
     {
-        //private readonly IUserRepository _userRepository;
-        //private IConnectionFactory _connectionFactory = ;
         private DbContext _context = new DbContext(ConnectionHelper.GetConnection());
 
         public UserAppService()
@@ -87,6 +85,11 @@ namespace Hematogenix.Application.UserAppService
             var user = Mapper.Map<UserDto, User>(userDto);
 
             var userRepository = new UserRepository(_context);
+
+            var existingUser = userRepository.GetUserByUsername(userDto.Username);
+
+            if (existingUser != null)
+                throw new Exception("Username already taken");
 
             return(userRepository.CreateUser(user));
         }

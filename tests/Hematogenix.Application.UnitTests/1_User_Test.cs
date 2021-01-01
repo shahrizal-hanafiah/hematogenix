@@ -1,52 +1,68 @@
 using Hematogenix.Core.Model;
 using Hematogenix.DataAccess.Repositories;
 using Hematogenix.Shared.Dto;
+using Hematogenix.Web.Controllers.ApiController;
+using Hematogenix.Web.Models;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Web.Http.Results;
 using Xunit;
 
 namespace Hematogenix.Application.UnitTests
 {
     public class UserTest
     {
-        public readonly IUserRepository MockUserRepository;
         [Fact]
         public void GetUsers_Success()
         {
-            IList<User> users = new List<User>
+            // Arrange
+            IList<UserDto> users = new List<UserDto>
             {
-                new User { Id=1,Username = "Harun1998",FirstName="Harun",LastName="Ahmad",Role="generaluser",Email="harun@gmail.com"},
-                new User { Id=2,Username = "Linda2002",FirstName="Linda",LastName="Darlis",Role="generaluser",Email="linda@gmail.com"}
+                new UserDto { Id=1,Username = "Harun1998",FirstName="Harun",LastName="Ahmad",Role="generaluser",Email="harun@gmail.com"},
+                new UserDto { Id=2,Username = "Linda2002",FirstName="Linda",LastName="Darlis",Role="generaluser",Email="linda@gmail.com"}
             };
 
-            Mock<IUserRepository> mockUserRepository = new Mock<IUserRepository>();
+            var mockAppService = new Mock<IUserAppService>();
+            mockAppService.Setup(x => x.GetAll()).Returns(users);
 
-            mockUserRepository.Setup(x => x.GetUsers()).Returns(users);
+            var controller = new UserController(mockAppService.Object);
 
+            // Act
+            var result = controller.Get();
 
+            // Assert
+            Assert.Equal(users, result.Value);
+            Assert.NotNull(result);
+            Assert.IsAssignableFrom<IList<UserDto>>(users);
+            Assert.Equal(200, result.StatusCode);
         }
+
         [Fact]
-        public void CanInsertProduct()
+        public void InsertUsers_Success()
         {
-            UserDto newUser = new UserDto
-            { Id = 4, Username = "Ayu2004", FirstName = "NurWahyuni", LastName = "Harun", Role = "generaluser", Email = "ayu@gmail.com" };
+            // Arrange
+            RegisterViewModel newUser = new RegisterViewModel()
+            {
+                Username = "Ayu2004",
+                FirstName = "NurWahyuni",
+                LastName = "Harun",
+                Role = "generaluser",
+                Email = "ayu@gmail.com"
+            };
 
-            int userCount = MockUserRepository.GetUsers().Count;
-            Assert.Equal(2, userCount); // Verify the expected Number pre-insert
+            var mockAppService = new Mock<IUserAppService>();
 
-            // try saving our new product
-            this.MockUserRepository.Insert(newUser);
+            var controller = new UserController(mockAppService.Object);
 
-            // demand a recount
-            userCount = this.MockUserRepository.GetUsers().Count;
-            Assert.Equal(3, userCount); // Verify the expected Number post-insert
+            // Act
+            var result = controller.RegisterUser(newUser);
 
-            // verify that our new product has been saved
-            User testUser = MockUserRepository.GetUserById(4);
-            Assert.NotNull(testUser); // Test if null
-            Assert.IsType<User>(testUser); // Test type
-            Assert.Equal(4, testUser.Id); // Verify it has the expected productid
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(200,result.StatusCode);
         }
+
     }
 }

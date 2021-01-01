@@ -1,16 +1,17 @@
-CREATE TABLE [dbo].[User](    
-    [Id] [int] IDENTITY(1,1) NOT NULL,    
-    [Username] [nvarchar](50) NOT NULL,    
-    [FirstName] [nvarchar](50) NOT NULL,    
-    [LastName] [nvarchar](50) NOT NULL,    
-    [Role] [nvarchar](20) NOT NULL,    
-    [Email] [nvarchar](50) NULL,    
-    [Phone] [nvarchar](20) NULL,   
- CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED     
-(    
-    [Id] ASC    
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]    
-) ON [PRIMARY]    
+CREATE TABLE [dbo].[User](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [nvarchar](50) NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+	[Role] [nvarchar](20) NOT NULL,
+	[Email] [nvarchar](50) NULL,
+	[Phone] [nvarchar](20) NULL,
+	CONSTRAINT UC_User UNIQUE (Username),
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]   
 GO    
 /* TO GET ALL USER AND GET USER BY ID*/    
 create procedure spGetUsers    
@@ -75,25 +76,20 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[spGetUserByUsernameOrEmail]
-	@Username			nvarchar(50) = '',
-	@Email				nvarchar(50) = ''
+CREATE PROCEDURE [dbo].[spGetUserByUsername]
+	@Username			nvarchar(50) = ''
 AS
   BEGIN
 
   if(@Username = '')
   SET @Username = null
 
-  if(@Email = '')
-  SET @Email = null
-
   
 
 	Select 
 		[Id]
 	from [dbo].[User] 
-	where (@pUsername IS NOT NULL AND [UserName] = @Username)
-		  OR (@pEmail IS NOT NULL AND [Email] = @Email)
+	where (@Username IS NOT NULL AND [UserName] = @Username)
   END
 GO
 

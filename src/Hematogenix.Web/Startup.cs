@@ -1,8 +1,6 @@
 using Hematogenix.Application;
 using Hematogenix.Application.UserAppService;
 using Hematogenix.Core.Model;
-using Hematogenix.DataAccess.Repositories;
-using Hematogenix.DataAccess.Repositories.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

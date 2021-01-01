@@ -48,15 +48,14 @@ namespace Hematogenix.DataAccess.Repositories
            
         }
 
-        public User GetUserByUsernameOrEmail(string username,string email)
+        public User GetUserByUsername(string username)
         {
             using (var command = _context.CreateCommand())
             {
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "spGetUserByUsernameOrEmail";
+                command.CommandText = "spGetUserByUsername";
 
                 command.Parameters.Add(command.CreateParameter("@Username", username));
-                command.Parameters.Add(command.CreateParameter("@Email", email));
 
                 return this.ToList(command).FirstOrDefault();
             }
