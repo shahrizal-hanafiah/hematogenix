@@ -19,3 +19,5 @@ src/Hematogenix.DataAccess/bin/
 src/Hematogenix.Core/bin/
 src/Hematogenix.Application/bin/
 src/Hematogenix.Shared/bin/
+src/Hematogenix.Web/Properties/
+src/Hematogenix.Web/.config/

@@ -93,3 +93,22 @@ AS
   END
 GO
 
+/*ADD USERS*/
+GO
+
+INSERT INTO [dbo].[User] VALUES ('Kelly1564','Cedric','Kelly','General User','kelly@gmail.com','01029387165')
+INSERT INTO [dbo].[User] VALUES ('Stevens3213','Cara','Stevens','General User','stevens3213@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Brenden314','Brenden','Wagner','General User','Brenden@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Bradley6456','Bradley','Greer','General User','Bradley@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Ashton4324','Ashton','Cox','General User','Ashton@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Angelica8875','Angelica','Ramos','General User','Angelica@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Airi565','Airi','Satou','General User','Airi@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Gavin342','Gavin','Joyce','General User','Gavin@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Garrett765','Garrett','Winters','General User','Garrett@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Fiona680','Fiona','Green','General User','Fiona@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Finn524','Finn','Camacho','Super User','Finn@gmail.com','01487326541')
+INSERT INTO [dbo].[User] VALUES ('Doris346','Doris','Wilder','General User','Doris@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Donna778','Donna','Snider','General User','Donna@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Dai632','Dai','Rios','General User','Dai@gmail.com','')
+INSERT INTO [dbo].[User] VALUES ('Colleen2357','Colleen','Hurst','Super User','Colleen@gmail.com','01029387165')
+GO
